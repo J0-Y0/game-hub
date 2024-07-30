@@ -1,6 +1,5 @@
 import { AppBar, Avatar, Box, Button, Fab, IconButton, Switch, Toolbar, Typography } from '@mui/material';
 import Logo from '../assets/images/logo.png'
-import ColorModeSwitch from './ColorModeSwitch';
 import { DarkMode, Light, LightMode } from '@mui/icons-material';
 interface Props  {
   setMode: (color: string) => void;

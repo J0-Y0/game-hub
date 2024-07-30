@@ -2,6 +2,7 @@ import { Box, createTheme, Grid, Paper, styled, ThemeProvider } from "@mui/mater
 import Navbar from "./components/Navbar";
 import './App.css'
 import { useState } from "react";
+import GameGrid from "./components/GameGrid";
 
 function App() {
  const [mode, setMode] = useState("dark");
@@ -25,12 +26,10 @@ function App() {
         <Grid container spacing={2}>
           <Grid item xs={12} p={0} m={0}>
             <Navbar mode={mode} setMode={setMode} />
-            
-            
           </Grid>
           <Grid item xs={12} sm={4}>
             <Paper sx={{ p: 2 }}>xs=4
-              lorem
+              <GameGrid />
             </Paper>
           </Grid>
         </Grid>
