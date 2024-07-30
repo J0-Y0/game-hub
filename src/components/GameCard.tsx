@@ -1,8 +1,8 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import { Game } from '../hooks/UseGames';
-import { Window } from '@mui/icons-material';
 import GamePlatformIcon from './GamePlatformIcon';
 import MetaCircle from './MetaCircle';
+import resizeImage from '../services/resize-image';
 
 interface Props{
     game:Game
@@ -10,9 +10,11 @@ interface Props{
 const GameCard = ({ game }: Props) => {
   return (
     <Card sx={{ maxWidth: 345, minWidth: 340, margin: 2 }}>
-      <CardMedia
+          <CardMedia
+              
         sx={{ height: 200 }}
-        image={game.background_image}
+              image={resizeImage( game.background_image)
+                 }
         title={game.name}
       />
       <CardContent>

@@ -20,19 +20,28 @@ interface GameResponse {
 }
 const UseGames = () => {
   const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState();
-  useEffect(() => {
+    const [error, setError] = useState();
+    const [loading,setLoading] = useState(false)
+    useEffect(() => {
+                  setLoading(true);
+
     const controller = new AbortController();
     apiClient
       .get<GameResponse>("/games", { signal: controller.signal })
-      .then((res) => setGames(res.data.results))
-      .catch((e) => {
+        .then((res) => {
+            setGames(res.data.results); 
+            setLoading(false)
+        })
+        .catch((e) => {
+
         if (e instanceof CanceledError) return;
-        setError(e.message);
+          setError(e.message);
+                                setLoading(false);
+
       });
     return () => controller.abort();
   }, []);
-  return { games, error, setGames, setError };
+  return { games, error, setGames, setError, loading };
 };
 
 export default UseGames;
