@@ -3,19 +3,15 @@ import React, { useEffect, useState } from 'react'
 import apiClientc from '../services/api-client'
 import apiClient from '../services/api-client'
 import UseGames from '../hooks/UseGames'
+import GameCard from './GameCard'
 
 const GameGrid = () => {
     const {error,games} = UseGames()
   return (
-    <Box>
+    <Box display="flex" flexWrap="wrap" justifyContent="center">
       {error && <Typography color="danger">{error}</Typography>}
-      <ul>
-        {games&&games.map((game) => (
-          <li key={game.id}>
-            {game.name} | {game.released}
-          </li>
-        ))}
-      </ul>
+
+      {games && games.map((game) => <GameCard key={game.id} game={game} />)}
     </Box>
   );
 }

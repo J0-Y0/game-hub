@@ -1,4 +1,4 @@
-import { Box, createTheme, Grid, Paper, styled, ThemeProvider } from "@mui/material";
+import { Box, createTheme, Grid, Paper, ThemeProvider } from "@mui/material";
 import Navbar from "./components/Navbar";
 import './App.css'
 import { useState } from "react";
@@ -16,21 +16,21 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-           flexGrow: 1,
-           backgroundColor: theme.palette.background.default,
-            color: theme.palette.text.primary,
-          
-           margin:0
+          flexGrow: 1,
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
+
+          margin: 0,
         }}
       >
+        <Navbar mode={mode} setMode={setMode} />
+
         <Grid container spacing={2}>
-          <Grid item xs={12} p={0} m={0}>
-            <Navbar mode={mode} setMode={setMode} />
+          <Grid item xs={12} sm={2}>
+            <Paper sx={{ p: 2 }}>dsds</Paper>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Paper sx={{ p: 2 }}>xs=4
-              <GameGrid />
-            </Paper>
+          <Grid item xs={12} sm={10}>
+            <GameGrid />
           </Grid>
         </Grid>
       </Box>
