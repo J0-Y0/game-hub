@@ -8,10 +8,16 @@ function App() {
  const [mode, setMode] = useState("dark");
   type PaletteMode = "light" | "dark";
   const theme = createTheme({
-   palette: {
-     mode: mode as PaletteMode,
-   },
- });
+    palette: {
+      secondary: {
+        light: "#ff7961",
+        main: "#f44336",
+        dark: "#ba000d",
+        contrastText: "#000",
+      },
+      mode: mode as PaletteMode,
+    },
+  });
   return (
     <ThemeProvider theme={theme}>
       <Box
