@@ -26,12 +26,12 @@ const GamePlatformIcon = ({ platforms }: Props) => {
       android: IoLogoAndroid,
     };
     return (
-        <Box color= "gray"  display="flex" 
-                mx={1}
+        <Box color= "gray"    display="flex" 
+                
                 flexDirection="row-reverse">
         {platforms.map(({ platform }) => (
-          <Box  
-                mx={1}
+          <Box  sx={{marginRight:1}}  
+               
             component={iconMap[platform.slug]}
           ></Box>
         ))}

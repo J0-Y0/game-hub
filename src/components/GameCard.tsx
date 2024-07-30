@@ -1,7 +1,8 @@
-import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import { Game } from '../hooks/UseGames';
 import { Window } from '@mui/icons-material';
 import GamePlatformIcon from './GamePlatformIcon';
+import MetaCircle from './MetaCircle';
 
 interface Props{
     game:Game
@@ -18,8 +19,10 @@ const GameCard = ({ game }: Props) => {
         <Typography gutterBottom variant="h5" component="div">
           {game.name}
         </Typography>
-        <GamePlatformIcon platforms={game.parent_platforms} />
-
+        <Box display="flex"  justifyContent="space-between">
+            <GamePlatformIcon platforms={game.parent_platforms} />
+            <MetaCircle metacritic={game.metacritic} />
+        </Box>
         <IconButton></IconButton>
         <Typography variant="body2" color="text.secondary">
           ====Lizards are a widespread group of squamate reptiles, with over
