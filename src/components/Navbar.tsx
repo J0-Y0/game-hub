@@ -1,42 +1,60 @@
-import { AppBar, Avatar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Box, Button, Fab, IconButton, Switch, Toolbar, Typography } from '@mui/material';
 import Logo from '../assets/images/logo.png'
-const Navbar = () => {
-    return (
-      <AppBar position="static">
-        <Toolbar>
+import ColorModeSwitch from './ColorModeSwitch';
+import { DarkMode, Light, LightMode } from '@mui/icons-material';
+interface Props  {
+  setMode: (color: string) => void;
+  mode:string
+}
+const Navbar = ({mode, setMode}:Props) => {
+  return (
+    <AppBar position="static" sx={{ background: "#ffca28" }}>
+      <Toolbar>
+        <Box flexGrow={1} display="flex" alignItems="center">
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2,mx:0 }}
+            sx={{ mr: 2, mx: 0 }}
           >
-            <Avatar alt="yosef logo" src={Logo} /> 
-            
+            <Avatar alt="yosef logo" src={Logo} />
           </IconButton>
-        <Typography
+          <Typography
             variant="h5"
             noWrap
             component="a"
+            color="success"
             href="#"
             sx={{
               mr: 2,
-              display: { md: 'flex', xs: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
+              display: { sm: "flex", xs: "none" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              fontStyle: "bold",
+              letterSpacing: ".3rem",
+              color: "inherit",
+
+              textDecoration: "none",
             }}
           >
-            Movie Hub
+            GameHub
           </Typography>
+        </Box>
 
-          <Button color="inherit">Logins</Button>
-        </Toolbar>
-      </AppBar>
-    );
-}
+        <Button color="inherit">Logins</Button>
+        <Fab
+          size="small"
+          color="primary"
+          aria-label="add"
+          onClick={() => setMode(mode == "light" ? "dark" : "light")}
+        >
+          {mode == "light" ? <DarkMode /> : <LightMode />}
+        </Fab>
+      
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Navbar
