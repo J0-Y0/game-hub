@@ -7,7 +7,7 @@ interface Props  {
 }
 const Navbar = ({mode, setMode}:Props) => {
   return (
-    <AppBar position="static" sx={{ background: "#ffca28" }}>
+    <AppBar position="static" sx={{ background: "#ffca25" }}>
       <Toolbar>
         <Box flexGrow={1} display="flex" alignItems="center">
           <IconButton

@@ -5,7 +5,7 @@ import GameCard from './GameCard'
 import GameCardSkeleton from './GameCardSkeleton'
 
 const GameGrid = () => {
-  const { error, games ,loading} = UseGames()
+  const { error, data:games ,loading} = UseGames()
   const skeletons = [1 , 2 , 3, 4 , 5 , 6,7,8,]
   return (
     <Box display="flex" flexWrap="wrap" justifyContent="center">

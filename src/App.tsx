@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import './App.css'
 import { useState } from "react";
 import GameGrid from "./components/GameGrid";
+import GenresList from "./components/GenresList";
 
 function App() {
  const [mode, setMode] = useState("dark");
@@ -32,8 +33,8 @@ function App() {
         <Navbar mode={mode} setMode={setMode} />
 
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={2}>
-            <Paper sx={{ p: 2 }}>dsds</Paper>
+          <Grid item sx={{display:{xs:"none",sm:"block"}}} sm={2}>
+            <GenresList  />
           </Grid>
           <Grid item xs={12} sm={10}>
             <GameGrid />
