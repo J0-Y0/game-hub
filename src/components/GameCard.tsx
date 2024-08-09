@@ -18,13 +18,13 @@ const GameCard = ({ game }: Props) => {
         title={game.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {game.name}
-        </Typography>
         <Box display="flex"  justifyContent="space-between">
             <GamePlatformIcon platforms={game.parent_platforms} />
             <MetaCircle metacritic={game.metacritic} />
         </Box>
+        <Typography gutterBottom variant="h5" component="div">
+          {game.name}
+        </Typography>
         <IconButton></IconButton>
         <Typography variant="body2" color="text.secondary">
           ====Lizards are a widespread group of squamate reptiles, with over
