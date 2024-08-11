@@ -1,4 +1,4 @@
-import { Box, createTheme, Grid, Paper, ThemeProvider } from "@mui/material";
+import { Box, Chip, createTheme, Divider, Grid, Paper, ThemeProvider } from "@mui/material";
 import Navbar from "./components/Navbar";
 import './App.css'
 import { useState } from "react";
@@ -6,6 +6,7 @@ import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
 import PlatformMenu from "./components/PlatformMenu";
 import { GameQuery } from "./hooks/UseGames";
+import OrderingMenu from "./components/OrderingMenu";
 
 function App() {
   const [mode, setMode] = useState("dark");
@@ -74,6 +75,18 @@ function App() {
                 setGameQuery({ ...gameQuery, platform: platform })
               }
             ></PlatformMenu>
+            <OrderingMenu setOrdering={(ordering)=>setGameQuery({...gameQuery,ordering:ordering})} />
+            <Divider>
+              {gameQuery.genre && (
+                <Chip label={gameQuery.genre.name} size="small" />
+              )}
+              {gameQuery.platform && (
+                <Chip label={gameQuery.platform.name} size="small" />
+              )}
+              {gameQuery.ordering && (
+                <Chip label={gameQuery.ordering} size="small" />
+              )}
+            </Divider>
             <GameGrid gameQuery={gameQuery} />
           </Grid>
         </Grid>

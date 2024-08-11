@@ -14,13 +14,15 @@ export interface Game {
 export interface GameQuery {
   genre: Genre | null,
   platform: Platform | null
+  ordering:string | null
 }
 
 const UseGames = (gameQuery: GameQuery) => {
   return UseData<Game>("games", {
     params: {
       genres: gameQuery.genre?.id,
-      platforms: gameQuery.platform?.id
+      platforms: gameQuery.platform?.id,
+      ordering: gameQuery.ordering
     }
   }, [gameQuery]);
 };

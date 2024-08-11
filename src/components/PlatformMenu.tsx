@@ -20,12 +20,7 @@ const PlatformMenu = ({ onSelectPlatform, selectedPlatform }:Props) => {
       >
         {selectedPlatform ? selectedPlatform?.name : "Platform"}
       </Button>
-      <Divider>
-        <Chip
-          label={selectedPlatform ? selectedPlatform.name + " Games" : ""}
-          size="small"
-        />
-      </Divider>
+     
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
