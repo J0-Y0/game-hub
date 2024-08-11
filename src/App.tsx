@@ -75,16 +75,34 @@ function App() {
                 setGameQuery({ ...gameQuery, platform: platform })
               }
             ></PlatformMenu>
-            <OrderingMenu setOrdering={(ordering)=>setGameQuery({...gameQuery,ordering:ordering})} />
+            <OrderingMenu
+              setOrdering={(ordering) =>
+                setGameQuery({ ...gameQuery, ordering: ordering })
+              }
+            />
             <Divider>
               {gameQuery.genre && (
-                <Chip label={gameQuery.genre.name} size="small" />
+                <Chip
+                  label={gameQuery.genre.name}
+                  size="small"
+                  onDelete={() => setGameQuery({ ...gameQuery, genre: null })}
+                />
               )}
               {gameQuery.platform && (
-                <Chip label={gameQuery.platform.name} size="small" />
+                <Chip
+                  label={gameQuery.platform.name}
+                  size="small"
+                  onDelete={() =>
+                    setGameQuery({ ...gameQuery, platform: null })
+                  }
+                />
               )}
               {gameQuery.ordering && (
-                <Chip label={gameQuery.ordering} size="small" />
+                <Chip
+                  label={gameQuery.ordering}
+                  size="small"
+                  onDelete={() => setGameQuery({ ...gameQuery, ordering: null })}
+                />
               )}
             </Divider>
             <GameGrid gameQuery={gameQuery} />
