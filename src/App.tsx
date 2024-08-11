@@ -4,14 +4,14 @@ import './App.css'
 import { useState } from "react";
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
-import { Genre } from "./hooks/UseGenres";
 import PlatformMenu from "./components/PlatformMenu";
-import { Platform } from "./hooks/usePlatform";
+import { GameQuery } from "./hooks/UseGames";
 
 function App() {
   const [mode, setMode] = useState("dark");
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+
+
   
   type PaletteMode = "light" | "dark";
   const theme = createTheme({
@@ -53,8 +53,10 @@ function App() {
             md={2}
           >
             <GenresList
-              onSelectedGenre={(genre) => setSelectedGenre(genre)}
-              selectedGenre={selectedGenre}
+              onSelectedGenre={(genre) =>
+                setGameQuery({ ...gameQuery, genre: genre })
+              }
+              selectedGenre={gameQuery.genre}
             />
           </Grid>
           <Grid
@@ -67,10 +69,12 @@ function App() {
             sx={{ padding: 0, margin: 0 }}
           >
             <PlatformMenu
-              selectedPlatform={selectedPlatform}
-              onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+              selectedPlatform={gameQuery.platform}
+              onSelectPlatform={(platform) =>
+                setGameQuery({ ...gameQuery, platform: platform })
+              }
             ></PlatformMenu>
-            <GameGrid selectedPlatform = {selectedPlatform} selectedGenre={selectedGenre} />
+            <GameGrid gameQuery={gameQuery} />
           </Grid>
         </Grid>
       </Box>
