@@ -9,7 +9,7 @@ interface Props{
 }
 const GameCard = ({ game }: Props) => {
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 340, margin: 2 }}>
+    <Card sx={{ maxWidth: 340, minWidth: 340, margin: 2 }}>
           <CardMedia
               
         sx={{ height: 200 }}
@@ -27,7 +27,7 @@ const GameCard = ({ game }: Props) => {
         </Typography>
         <IconButton></IconButton>
         <Typography variant="body2" color="text.secondary">
-          ====Lizards are a widespread group of squamate reptiles, with over
+        Lizards are a widespread group of squamate reptiles, with over
           6,000 species, ranging across all continents except Antarctica
         </Typography>
       </CardContent>

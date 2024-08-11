@@ -4,9 +4,12 @@ import './App.css'
 import { useState } from "react";
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
+import { Genre } from "./hooks/UseGenres";
 
 function App() {
- const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("dark");
+  const [genre, setGenre] = useState<Genre | null>(null)
+  
   type PaletteMode = "light" | "dark";
   const theme = createTheme({
     palette: {
@@ -32,12 +35,32 @@ function App() {
       >
         <Navbar mode={mode} setMode={setMode} />
 
-        <Grid container spacing={2}>
-          <Grid item sx={{display:{xs:"none",sm:"block"}}} sm={2}>
-            <GenresList  />
+        <Grid
+          container
+          spacing={1}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Grid
+            item
+            sx={{ display: { xs: "none", sm: "block" } }}
+            sm={3}
+            md={2}
+          >
+            <GenresList onSelectedGenre={(genre) => setGenre(genre)} />
           </Grid>
-          <Grid item xs={12} sm={10}>
-            <GameGrid />
+          <Grid
+            item
+            xs={12}
+            sm={9}
+            md={10}
+            margin={0}
+            padding={0}
+            sx={{ padding: 0, margin: 0 }}
+          >
+            <GameGrid selectedGenre ={genre} />
           </Grid>
         </Grid>
       </Box>

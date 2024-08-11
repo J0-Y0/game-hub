@@ -1,7 +1,7 @@
 
 import UseData from './UseData';
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
   games_count: number;

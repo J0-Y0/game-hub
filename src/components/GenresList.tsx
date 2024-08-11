@@ -1,35 +1,38 @@
 import React from 'react'
-import UseGenres from '../hooks/UseGenres'
-import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Skeleton, Typography } from '@mui/material'
+import UseGenres, { Genre } from '../hooks/UseGenres'
+import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Skeleton, Typography } from '@mui/material'
 import resizeImage from '../services/resize-image';
-const GenresList = () => {
-    const { data:genres,loading } = UseGenres()
-    const skeletons = [1,1,1,1,1,1,11,1,1,1]
-    return (
-      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {loading
-          ? skeletons.map(() => (
-              <>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                                      <Skeleton height={40} width={40} variant="circular" />
+interface Props {
+  onSelectedGenre: (genre:Genre) => void;
+}
+const GenresList = ({ onSelectedGenre }: Props) => {
+  const { data: genres, loading } = UseGenres();
+  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  return (
+    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      {loading
+        ? skeletons.map((s) => (
+            <Box key={s}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Skeleton height={40} width={40} variant="circular" />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={<Skeleton width={100} />}
+                  secondary={<Skeleton width={50} />}
+                />
+              </ListItem>
 
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={<Skeleton width={100} />}
-                    secondary={<Skeleton width={50} />}
-                  />
-                </ListItem>
-
-                <Divider variant="inset" component="li" />
-              </>
-            ))
-          : genres.map((genre) => (
-              <>
-                <ListItem alignItems="flex-start">
+              <Divider variant="inset" component="li" />
+            </Box>
+          ))
+        : genres.map((genre) => (
+            <Box key={genre.id}>
+              <ListItem disablePadding alignItems="flex-start">
+                <ListItemButton onClick={() => onSelectedGenre(genre)}>
                   <ListItemAvatar>
                     <Avatar
-                      alt="Remy Sharp"
+                      alt="Image"
                       src={resizeImage(genre.image_background)}
                     />
                   </ListItemAvatar>
@@ -37,13 +40,14 @@ const GenresList = () => {
                     primary={genre.name}
                     secondary={genre.games_count + ""}
                   />
-                </ListItem>
+                </ListItemButton>
+              </ListItem>
 
-                <Divider variant="inset" component="li" />
-              </>
-            ))}
-      </List>
-    );
-}
+              <Divider variant="inset" component="li" />
+            </Box>
+          ))}
+    </List>
+  );
+};
 
 export default GenresList;

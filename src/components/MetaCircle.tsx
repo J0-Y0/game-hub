@@ -17,11 +17,7 @@ const MetaCircle = ({ metacritic }: Props) => {
       "#448E49",
       "#3AAE42",
     ];
-          console.log(
-            "---",
-            metacritic, "---",Math.floor(metacritic / 10),
-            colorMap[Math.floor(metacritic / 10)]
-          );
+          
 
 
     return (
