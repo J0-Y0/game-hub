@@ -5,10 +5,13 @@ import { useState } from "react";
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
 import { Genre } from "./hooks/UseGenres";
+import PlatformMenu from "./components/PlatformMenu";
+import { Platform } from "./hooks/usePlatform";
 
 function App() {
   const [mode, setMode] = useState("dark");
-  const [genre, setGenre] = useState<Genre | null>(null)
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
   
   type PaletteMode = "light" | "dark";
   const theme = createTheme({
@@ -49,7 +52,10 @@ function App() {
             sm={3}
             md={2}
           >
-            <GenresList  onSelectedGenre={(genre) => setGenre(genre)} selectedGenre={genre} />
+            <GenresList
+              onSelectedGenre={(genre) => setSelectedGenre(genre)}
+              selectedGenre={selectedGenre}
+            />
           </Grid>
           <Grid
             item
@@ -60,7 +66,11 @@ function App() {
             padding={0}
             sx={{ padding: 0, margin: 0 }}
           >
-            <GameGrid selectedGenre ={genre} />
+            <PlatformMenu
+              selectedPlatform={selectedPlatform}
+              onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+            ></PlatformMenu>
+            <GameGrid selectedPlatform = {selectedPlatform} selectedGenre={selectedGenre} />
           </Grid>
         </Grid>
       </Box>
