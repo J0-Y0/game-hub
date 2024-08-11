@@ -3,9 +3,10 @@ import UseGenres, { Genre } from '../hooks/UseGenres'
 import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Skeleton, Typography } from '@mui/material'
 import resizeImage from '../services/resize-image';
 interface Props {
-  onSelectedGenre: (genre:Genre) => void;
+  onSelectedGenre: (genre: Genre) => void;
+  selectedGenre:Genre|null
 }
-const GenresList = ({ onSelectedGenre }: Props) => {
+const GenresList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { data: genres, loading } = UseGenres();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
@@ -29,7 +30,10 @@ const GenresList = ({ onSelectedGenre }: Props) => {
         : genres.map((genre) => (
             <Box key={genre.id}>
               <ListItem disablePadding alignItems="flex-start">
-                <ListItemButton onClick={() => onSelectedGenre(genre)}>
+                <ListItemButton
+                onClick={() =>onSelectedGenre(genre)}
+                selected={selectedGenre?.id === genre.id}
+                >
                   <ListItemAvatar>
                     <Avatar
                       alt="Image"

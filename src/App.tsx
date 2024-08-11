@@ -49,7 +49,7 @@ function App() {
             sm={3}
             md={2}
           >
-            <GenresList onSelectedGenre={(genre) => setGenre(genre)} />
+            <GenresList  onSelectedGenre={(genre) => setGenre(genre)} selectedGenre={genre} />
           </Grid>
           <Grid
             item
