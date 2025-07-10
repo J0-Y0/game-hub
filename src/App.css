@@ -1,9 +1,40 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-body{
+body {
   overflow-x: hidden !important;
   /* background-color: rgb(255, 255, 10); */
+}
+/* App.css */
+
+/* Scrollbar for Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.4);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background-color: rgba(200, 200, 200, 0.2);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
+}
+body.dark-mode * {
+  scrollbar-color: rgba(200, 200, 200, 0.2) transparent;
+}
+
+/* Body background smooth transition */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

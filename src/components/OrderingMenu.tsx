@@ -1,50 +1,104 @@
-import { Button, Chip, Divider, Menu, MenuItem } from '@mui/material'
-import React, { useState } from 'react'
-import { AiOutlineSortAscending } from "react-icons/ai";
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Typography,
+  useTheme,
+  alpha,
+  Box,
+} from "@mui/material";
+import React, { useState } from "react";
+import {
+  AiOutlineSortAscending,
+  AiOutlineArrowUp,
+  AiOutlineStar,
+  AiOutlineFire,
+  AiOutlineCalendar,
+} from "react-icons/ai";
+import { motion } from "framer-motion";
 
 interface Props {
-  setOrdering:(order:string)=>void
+  setOrdering: (order: string) => void;
 }
-const OrderingMenu = ({ setOrdering }:Props) => {
+
+const OrderingMenu = ({ setOrdering }: Props) => {
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
   const orders = [
-    { key: "-name", value: "Name" },
-    { key: "rating", value: "Rating " },
-    { key: "metacritic", value: "Popularity" },
-    { key: "-released", value: "Released date " },
-    { key: "-added", value: "Added date " },
-    { key: "-created", value: "Created date " },
+    { key: "-name", value: "Name", icon: <AiOutlineArrowUp /> },
+    { key: "rating", value: "Rating", icon: <AiOutlineStar /> },
+    { key: "metacritic", value: "Popularity", icon: <AiOutlineFire /> },
+    { key: "-released", value: "Release Date", icon: <AiOutlineCalendar /> },
   ];
+
   return (
-    <>
+    <Box>
       <Button
-        sx={{ m: 1 }}
-        variant="outlined"
+        variant="contained"
+        size="medium"
         endIcon={<AiOutlineSortAscending />}
         onClick={(event) => setAnchorEl(anchorEl ? null : event.currentTarget)}
+        sx={{
+          borderRadius: 3,
+          px: 3,
+          py: 1,
+          textTransform: "none",
+          fontWeight: 600,
+          bgcolor: alpha(theme.palette.primary.main, 0.1),
+          color: theme.palette.text.primary,
+          "&:hover": {
+            bgcolor: alpha(theme.palette.primary.main, 0.2),
+          },
+        }}
       >
-        Sorting
+        Sort By
       </Button>
 
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
+        PaperProps={{
+          sx: {
+            mt: 1,
+            borderRadius: 3,
+            minWidth: 200,
+            boxShadow: theme.shadows[3],
+            bgcolor: theme.palette.background.paper,
+          },
+        }}
       >
         {orders.map((order) => (
-          <MenuItem
+          <motion.div
             key={order.key}
-            onClick={() => {
-              setAnchorEl(null);
-              setOrdering(order.key);
-            }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {order.value}
-          </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null);
+                setOrdering(order.key);
+              }}
+              sx={{
+                py: 1.5,
+                "&:hover": {
+                  bgcolor: alpha(theme.palette.primary.main, 0.1),
+                },
+              }}
+            >
+              <Box display="flex" alignItems="center" gap={1.5}>
+                {order.icon}
+                <Typography variant="body1" fontWeight={500}>
+                  {order.value}
+                </Typography>
+              </Box>
+            </MenuItem>
+          </motion.div>
         ))}
       </Menu>
-    </>
+    </Box>
   );
 };
 
-export default OrderingMenu
+export default OrderingMenu;
