@@ -1,59 +1,81 @@
-import { AppBar, Avatar, Box, Button, Fab, IconButton, Switch, Toolbar, Typography } from '@mui/material';
-import Logo from '../assets/images/logo.png'
-import { DarkMode, Light, LightMode } from '@mui/icons-material';
-interface Props  {
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+  useTheme,
+  Tooltip,
+} from "@mui/material";
+import { DarkMode, LightMode } from "@mui/icons-material";
+import Logo from "../assets/images/logo.png";
+
+interface Props {
   setMode: (color: string) => void;
-  mode:string
+  mode: string;
 }
-const Navbar = ({mode, setMode}:Props) => {
+
+const Navbar = ({ mode, setMode }: Props) => {
+  const theme = useTheme();
+
   return (
-    <AppBar position="static" sx={{ background: "light" }}>
-      <Toolbar>
-        <Box flexGrow={1} display="flex" alignItems="center">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, mx: 0 }}
-          >
-            <Avatar alt="yosef logo" src={Logo} />
+    <AppBar
+      position="static"
+      elevation={2}
+      sx={{
+        backgroundColor: mode === "light" ? "#ffffff" : "#121212",
+        color: mode === "light" ? "#000" : "#fff",
+      }}
+    >
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        {/* Left Side: Logo + Brand */}
+        <Box display="flex" alignItems="center">
+          <IconButton edge="start" sx={{ p: 0, mr: 1 }}>
+            <Avatar alt="Yosef Logo" src={Logo} />
           </IconButton>
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
-            color="success"
             href="#"
             sx={{
-              mr: 2,
-              display: { sm: "flex", xs: "none" },
-              fontFamily: "monospace",
               fontWeight: 700,
-              fontStyle: "bold",
-              letterSpacing: ".3rem",
+              letterSpacing: ".2rem",
               color: "inherit",
-
               textDecoration: "none",
+              fontFamily: "Roboto, sans-serif",
             }}
           >
             GameHub
           </Typography>
         </Box>
 
-        <Button color="inherit">Logins</Button>
-        <Fab
-          size="small"
-          color="primary"
-          aria-label="add"
-          onClick={() => setMode(mode == "light" ? "dark" : "light")}
-        >
-          {mode == "light" ? <DarkMode /> : <LightMode />}
-        </Fab>
-      
+        {/* Right Side: Login + Theme Toggle */}
+        <Box display="flex" alignItems="center" gap={2}>
+          <Button variant="outlined" color="inherit" size="small">
+            Login
+          </Button>
+          <Tooltip title="Toggle theme">
+            <IconButton
+              onClick={() => setMode(mode === "light" ? "dark" : "light")}
+              color="inherit"
+              sx={{
+                transition: "0.3s",
+                "&:hover": {
+                  backgroundColor:
+                    mode === "light" ? "#f0f0f0" : "rgba(255,255,255,0.1)",
+                },
+              }}
+            >
+              {mode === "light" ? <DarkMode /> : <LightMode />}
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Navbar
+export default Navbar;

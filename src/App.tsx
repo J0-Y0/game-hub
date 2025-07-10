@@ -1,6 +1,13 @@
-import { Box, Chip, createTheme, Divider, Grid, Paper, ThemeProvider } from "@mui/material";
+import {
+  Box,
+  Chip,
+  createTheme,
+  Divider,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 import Navbar from "./components/Navbar";
-import './App.css'
+import "./App.css";
 import { useState } from "react";
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
@@ -9,78 +16,70 @@ import { GameQuery } from "./hooks/UseGames";
 import OrderingMenu from "./components/OrderingMenu";
 
 function App() {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState<"light" | "dark">("dark");
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
-
-  
-  type PaletteMode = "light" | "dark";
   const theme = createTheme({
     palette: {
+      mode,
       secondary: {
-        light: "#ff7961",
         main: "#f44336",
-        dark: "#ba000d",
-        contrastText: "#000",
       },
-      mode: mode as PaletteMode,
     },
   });
+
+  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          flexGrow: 1,
-          backgroundColor: theme.palette.background.default,
-          color: theme.palette.text.primary,
-
-          margin: 0,
-        }}
-      >
+      <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+        {/* Top Navbar */}
         <Navbar mode={mode} setMode={setMode} />
 
-        <Grid
-          container
-          spacing={1}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Grid
-            item
-            sx={{ display: { xs: "none", sm: "block" } }}
-            sm={3}
-            md={2}
-          >
-            <GenresList
-              onSelectedGenre={(genre) =>
-                setGameQuery({ ...gameQuery, genre: genre })
-              }
-              selectedGenre={gameQuery.genre}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={9}
-            md={10}
-            margin={0}
-            padding={0}
-            sx={{ padding: 0, margin: 0 }}
+        {/* Main Layout */}
+        <Box sx={{ display: "flex", flex: 1, overflow: "hidden" }}>
+          {/* Sidebar */}
+          {isSmUp && (
+            <Box
+              sx={{
+                width: 240,
+                overflowY: "auto",
+                borderRight: "1px solid #ddd",
+                bgcolor: mode === "light" ? "#f9f9f9" : "#1e1e1e",
+              }}
+            >
+              <GenresList
+                onSelectedGenre={(genre) =>
+                  setGameQuery({ ...gameQuery, genre })
+                }
+                selectedGenre={gameQuery.genre}
+              />
+            </Box>
+          )}
+
+          {/* Main Content */}
+          <Box
+            sx={{
+              flex: 1,
+              overflowY: "auto",
+              padding: 2,
+              bgcolor: theme.palette.background.default,
+            }}
           >
             <PlatformMenu
               selectedPlatform={gameQuery.platform}
               onSelectPlatform={(platform) =>
-                setGameQuery({ ...gameQuery, platform: platform })
-              }
-            ></PlatformMenu>
-            <OrderingMenu
-              setOrdering={(ordering) =>
-                setGameQuery({ ...gameQuery, ordering: ordering })
+                setGameQuery({ ...gameQuery, platform })
               }
             />
-            <Divider>
+            <OrderingMenu
+              setOrdering={(ordering) =>
+                setGameQuery({ ...gameQuery, ordering })
+              }
+            />
+
+            {/* Filter Chips */}
+            <Divider sx={{ my: 1 }}>
               {gameQuery.genre && (
                 <Chip
                   label={gameQuery.genre.name}
@@ -101,16 +100,19 @@ function App() {
                 <Chip
                   label={gameQuery.ordering}
                   size="small"
-                  onDelete={() => setGameQuery({ ...gameQuery, ordering: null })}
+                  onDelete={() =>
+                    setGameQuery({ ...gameQuery, ordering: null })
+                  }
                 />
               )}
             </Divider>
+
             <GameGrid gameQuery={gameQuery} />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Box>
     </ThemeProvider>
   );
 }
 
-export default App
+export default App;
