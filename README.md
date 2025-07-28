@@ -1,30 +1,152 @@
-# React + TypeScript + Vite
+# GameHub 🎮
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive game discovery platform built with React, TypeScript, and Material-UI. GameHub allows users to explore thousands of games across different platforms and genres using the RAWG Video Games Database API.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **🎯 Game Discovery**: Browse and discover games from a vast database
+- **🔍 Advanced Filtering**: Filter games by genre, platform, and sorting options
+- **📱 Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **🌙 Dark/Light Theme**: Toggle between dark and light modes
+- **⚡ Fast Performance**: Built with Vite for lightning-fast development and builds
+- **🎨 Modern UI**: Beautiful Material-UI components with custom styling
+- **📊 Game Details**: View game ratings, platforms, and release information
+- **🔄 Real-time Updates**: Dynamic content loading with smooth animations
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **UI Library**: Material-UI (MUI) v5
+- **Styling**: Emotion (CSS-in-JS)
+- **Icons**: Material-UI Icons & React Icons
+- **HTTP Client**: Axios
+- **Routing**: React Router DOM v6
+- **API**: RAWG Video Games Database
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Getting Started
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/J0-Y0/game-hub.git
+   cd game-hub
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint for code quality
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── GameCard.tsx    # Individual game card component
+│   ├── GameGrid.tsx    # Grid layout for games
+│   ├── GenresList.tsx  # Genre filtering sidebar
+│   ├── Hero.tsx        # Landing page hero section
+│   ├── PlatformMenu.tsx # Platform filtering dropdown
+│   └── ...
+├── hooks/              # Custom React hooks
+│   ├── UseGames.ts     # Hook for fetching games
+│   ├── UseGenres.ts    # Hook for fetching genres
+│   └── ...
+├── services/           # API and utility services
+│   ├── api-client.ts   # Axios configuration
+│   └── resize-image.ts # Image optimization utility
+├── assets/             # Static assets
+│   └── images/
+└── App.tsx            # Main application component
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 🎮 Key Components
+
+### GameGrid
+Displays games in a responsive grid layout with loading skeletons and smooth animations.
+
+### Hero Section
+Landing page with theme toggle, branding, and quick navigation to games section.
+
+### Filtering System
+- **Genre Filter**: Sidebar with genre categories
+- **Platform Filter**: Dropdown menu for gaming platforms
+- **Sorting Options**: Various sorting criteria (rating, release date, etc.)
+
+### Game Cards
+Individual game cards showing:
+- Game artwork
+- Title and release date
+- Platform icons
+- Metacritic rating
+- Hover effects and animations
+
+## 🔧 Configuration
+
+### API Configuration
+The app uses the RAWG API. The API client is configured in `src/services/api-client.ts`:
+
+```typescript
+export default axios.create({
+    baseURL: "https://api.rawg.io/api",
+    headers: { "Content-Type": "application/json"},
+    params: {
+        key: "your-api-key-here",
+    },
+})
+```
+
+### Theme Customization
+The app supports both light and dark themes with custom Material-UI theme configuration in `App.tsx`.
+
+## 📱 Responsive Design
+
+- **Mobile**: Collapsible sidebar with floating action button
+- **Tablet**: Optimized grid layout and touch-friendly interactions
+- **Desktop**: Full sidebar navigation with hover effects
+
+## 🎨 Design Features
+
+- **Gradient Backgrounds**: Beautiful gradient themes for both light and dark modes
+- **Smooth Animations**: Framer Motion animations for enhanced user experience
+- **Custom Components**: Styled Material-UI components with consistent design language
+- **Loading States**: Skeleton loaders for better perceived performance
+
+## 🚀 Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+### Deploy to Vercel/Netlify
+
+1. Connect your repository to your preferred hosting platform
+2. Set build command to `npm run build`
+3. Set publish directory to `dist`
+4. Deploy!
