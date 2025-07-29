@@ -64,21 +64,26 @@ A modern, responsive game discovery platform built with React, TypeScript, and M
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── GameCard.tsx    # Individual game card component
-│   ├── GameGrid.tsx    # Grid layout for games
-│   ├── GenresList.tsx  # Genre filtering sidebar
-│   ├── Hero.tsx        # Landing page hero section
-│   ├── PlatformMenu.tsx # Platform filtering dropdown
-│   └── ...
+│   ├── GameCard.tsx       # Individual game card component
+│   ├── GameCardSkeleton.tsx # Skeleton loader for game cards
+│   ├── GameGrid.tsx        # Grid layout for games
+│   ├── GamePlatformIcon.tsx # Platform icons display
+│   ├── GenresList.tsx      # Genre filtering sidebar
+│   ├── Hero.tsx            # Landing page hero section
+│   ├── MetaCircle.tsx      # Metacritic score display
+│   ├── OrderingMenu.tsx    # Sorting options dropdown
+│   ├── PlatformMenu.tsx    # Platform filtering dropdown
+│   └── Reaction.tsx        # Emoji reactions component
 ├── hooks/              # Custom React hooks
-│   ├── UseGames.ts     # Hook for fetching games
-│   ├── UseGenres.ts    # Hook for fetching genres
-│   └── ...
+│   ├── UseData.ts        # Generic data fetching hook
+│   ├── UseGames.ts       # Hook for fetching games
+│   ├── UseGenres.ts      # Hook for fetching genres
+│   └── usePlatform.ts    # Hook for platform data
 ├── services/           # API and utility services
-│   ├── api-client.ts   # Axios configuration
-│   └── resize-image.ts # Image optimization utility
+│   ├── api-client.ts     # Axios configuration
+│   └── resize-image.ts   # Image optimization utility
 ├── assets/             # Static assets
-│   └── images/
+│   └── images/          # Image assets
 └── App.tsx            # Main application component
 ```
 
@@ -90,30 +95,46 @@ Displays games in a responsive grid layout with loading skeletons and smooth ani
 ### Hero Section
 Landing page with theme toggle, branding, and quick navigation to games section.
 
-### Filtering System
-- **Genre Filter**: Sidebar with genre categories
-- **Platform Filter**: Dropdown menu for gaming platforms
-- **Sorting Options**: Various sorting criteria (rating, release date, etc.)
+### Filtering & Sorting
+- **Genre Filter**: Sidebar with genre categories (GenresList)
+- **Platform Filter**: Dropdown menu for gaming platforms (PlatformMenu)
+- **Sorting Options**: Various sorting criteria via dropdown (OrderingMenu)
 
 ### Game Cards
-Individual game cards showing:
-- Game artwork
+Individual game cards (GameCard) showing:
+- Game artwork with optimized loading
 - Title and release date
-- Platform icons
-- Metacritic rating
+- Platform icons (GamePlatformIcon)
+- Metacritic rating (MetaCircle)
 - Hover effects and animations
+- Emoji reactions (Reaction)
+
+### Loading States
+Skeleton loaders (GameCardSkeleton) for smooth loading experience
+
+### Data Handling
+- Custom hooks for data fetching (UseGames, UseGenres, usePlatform)
+- Generic data fetching hook (UseData)
 
 ## 🔧 Configuration
 
 ### API Configuration
-The app uses the RAWG API. The API client is configured in `src/services/api-client.ts`:
+The app uses the RAWG API. The API key should be stored in the `.env` file at the root of the project:
+
+```ini
+VITE_RAWG_API_KEY=your_api_key_here
+VITE_BASE_URL=https://api.rawg.io/api
+
+```
+
+The API client is configured in `src/services/api-client.ts` to use this environment variable:
 
 ```typescript
 export default axios.create({
-    baseURL: "https://api.rawg.io/api",
+    baseURL:import.meta.env.VITE_BASE_URL ,
     headers: { "Content-Type": "application/json"},
     params: {
-        key: "your-api-key-here",
+        key: import.meta.env.VITE_RAWG_API_KEY,
     },
 })
 ```
